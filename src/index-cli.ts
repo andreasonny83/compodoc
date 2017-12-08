@@ -1,7 +1,6 @@
 import * as fs from 'fs-extra';
 import * as path from 'path';
 import * as _ from 'lodash';
-
 import { Application } from './app/application';
 
 import { COMPODOC_DEFAULTS } from './utils/defaults';
@@ -11,6 +10,7 @@ import { FileEngine } from './app/engines/file.engine';
 import { ExcludeParserUtil } from './utils/exclude-parser.util';
 import { IncludeParserUtil } from './utils/include-parser.util';
 
+const asciify = require('asciify');
 const pkg = require('../package.json');
 const program = require('commander');
 const os = require('os');
@@ -177,7 +177,7 @@ export class CliApplication extends Application {
         }
 
         if (!this.isWatching) {
-            console.log(fs.readFileSync(path.join(__dirname, '../src/banner')).toString());
+            asciify('NGX-Compodoc', {color:'cyan'}, (err, res) => console.log(res));
             console.log(pkg.version);
             console.log('');
             console.log(`Node.js version : ${process.version}`);
